@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
-import 'fourth_page.dart'; // 새로 생성한 파일의 경로를 지정해야 합니다.
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // 디버그 표시를 없애기 위한 설정
-      title: 'My App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
+class FourthPage extends StatelessWidget {
   final List<String> imagePaths = [
     'assets/1.png',
     'assets/2.png',
@@ -27,7 +8,6 @@ class HomePage extends StatelessWidget {
     'assets/4.png',
     'assets/rightArrow.png',
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +16,7 @@ class HomePage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // 뒤로 가기 버튼을 눌렀을 때 수행할 작업
+            Navigator.pop(context);
           },
         ),
         title: Center(
@@ -165,7 +145,7 @@ class HomePage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FourthPage()), // FourthPage를 호출합니다.
+                      MaterialPageRoute(builder: (context) => FourthPage()),
                     );
                   },
                   child: Transform.translate(
@@ -223,21 +203,54 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  width: 110,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(13),
-                      topRight: Radius.circular(13),
-                      bottomLeft: Radius.circular(13),
-                      bottomRight: Radius.circular(13),
+                Padding(
+                  padding: EdgeInsets.only(left: 30, right: 30), // 왼쪽 패딩을 추가하기 위해 right를 사용합니다.
+                  child: Container(
+                    width: 150,
+                    height: 35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(13),
+                        topRight: Radius.circular(13),
+                        bottomLeft: Radius.circular(13),
+                        bottomRight: Radius.circular(13),
+                      ),
+                      color: Color.fromRGBO(99, 99, 99, 100),
                     ),
+                    child:Center(
+                      child: RichText(
+                        text: TextSpan(
+                          text: '도현',
+                          style: TextStyle(
+                            color: Color.fromRGBO(28, 21, 71, 1),
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '의 투두리스트',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ), // 첫 번째 Container와 두 번째 Container 사이의 간격을 조절할 수 있습니다.
+                Container(
+                  width: 80, // 두 번째 Container의 너비를 원하는 값으로 설정해주세요.
+                  height: 30, // 두 번째 Container의 높이를 원하는 값으로 설정해주세요.
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(19),
                     color: Color.fromRGBO(28, 21, 71, 1),
                   ),
                   child: Center(
                     child: Text(
-                      '프로젝트 진행률', // 텍스트 내용을 원하는 내용으로 수정해주세요.
+                      '개발',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,
@@ -248,82 +261,165 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 20),
+
+            // 4개의 체크 박스
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListTile(
+                  leading: Checkbox(
+                    value: true,
+                    onChanged: (value) {},
+                    activeColor: Colors.lightGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0), // 테두리를 둥글게 조절하는 값
+                    ),
+                  ),
+                  title: Text(
+                    '로그인 페이지 구현',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ListTile(
+                  leading: Checkbox(
+                    value: false,
+                    onChanged: (value) {},
+                    activeColor: Colors.lightGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  title: Row(
+                    children: [
+                      Text(
+                        '회원가입 페이지 구현',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 50), // 추가된 박스와 텍스트 사이의 간격을 조절할 수 있습니다.
+                      Container(
+                        width: 80,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 199, 0, 100),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Hurry Up!',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                ListTile(
+                  leading: Checkbox(
+                    value: false,
+                    onChanged: (value) {},
+                    activeColor: Colors.lightGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0), // 테두리를 둥글게 조절하는 값
+                    ),
+                  ),
+                  title: Row(
+                    children: [
+                      Text(
+                        '보고서 쓰기',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 120), // 추가된 박스와 텍스트 사이의 간격을 조절할 수 있습니다.
+                      Container(
+                        width: 80,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 199, 0, 100),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Hurry Up!',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: Checkbox(
+                    value: true,
+                    onChanged: (value) {},
+                    activeColor: Colors.lightGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0), // 테두리를 둥글게 조절하는 값
+                    ),
+                  ),
+                  title: Text(
+                    '발표 PPT 만들기',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // 이미지
-                Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: Image.asset(
-                    'assets/progressBar.png', // 원하는 이미지의 경로를 입력해주세요.
-                    width: 350,
-                    height: 80,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-
-                // 추가적인 컨텐츠를 원하면 여기에 추가하세요.
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16), // 위와 아래에 16픽셀의 패딩 추가
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 150,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(13),
-                        topRight: Radius.circular(13),
-                        bottomLeft: Radius.circular(13),
-                        bottomRight: Radius.circular(13),
-                      ),
-                      color: Color.fromRGBO(28, 21, 71, 1),
-                    ),
-                    child: Center(
-                      child: RichText(
-                        text: TextSpan(
-                          text: '그루비룸',
-                          style: TextStyle(
-                            color: Color(0xFFFFAA6C), // 텍스트의 색상을 'FFAA6C'로 변경
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal,
+                GestureDetector(
+                  onTap: () {
+                    // 아이콘을 누를 때의 동작을 정의합니다. 텍스트 입력 기능을 추가하면 됩니다.
+                    // 예를 들어, 다이얼로그를 표시하여 텍스트 입력을 받을 수 있습니다.
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('텍스트 입력'),
+                          content: TextField(
+                            // 텍스트 입력 필드 설정
+                            // 원하는 스타일이나 동작을 추가하여 사용할 수 있습니다.
                           ),
-                          children: [
-                            TextSpan(
-                              text: '의 일정',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.normal,
-                              ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                // 텍스트 입력을 완료하고 다이얼로그를 닫는 동작을 추가합니다.
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('확인'),
                             ),
                           ],
-                        ),
-                      ),
+                        );
+                      },
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 25, top: 10),
+                    child: Icon(
+                      Icons.add_circle,
+                      color: Color.fromRGBO(99, 99, 99, 100),
+                      size: 30,
                     ),
                   ),
-                ],
-              ),
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // 이미지
-                Padding(
-                  padding: EdgeInsets.only(top: 0),
-                  child: Image.asset(
-                    'assets/calander.png', // 원하는 이미지의 경로를 입력해주세요.
-                    width: 350,
-                    height: 350,
-                    fit: BoxFit.fitHeight,
-                  ),
                 ),
-
-                // 추가적인 컨텐츠를 원하면 여기에 추가하세요.
               ],
             ),
           ],

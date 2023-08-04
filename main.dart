@@ -1,104 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/그룹생성.dart';
 
-import '회원가입.dart';
-
-void main() {
-  runApp(const MyApp());
+class ColoredCircles extends StatefulWidget {
+  @override
+  _ColoredCirclesState createState() => _ColoredCirclesState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+class _ColoredCirclesState extends State<ColoredCircles> {
+  bool _isMoving = false; // Start with true to initiate animation
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '로그인 페이지',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(),
-    );
-  }
-}
+  void initState() {
+    super.initState();
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key});
+    // Start animation after a delay (if needed)
+    Future.delayed(Duration(milliseconds: 500), () {
+      setState(() {
+        _isMoving = !_isMoving; // Toggle the animation state
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              width: 400,
+      body: Stack(
+        children: [
+          AnimatedPositioned(
+            duration: Duration(seconds: 2),
+            curve: Curves.easeInOut,
+            top: _isMoving ? MediaQuery.of(context).size.height / 2 - 170 : 200,
+            left: _isMoving ? MediaQuery.of(context).size.width / 2 - 50 : -23,
+            child: CircleAvatar(
+              backgroundColor: Color.fromRGBO(5, 129, 183, 0.75),
+              radius: 50,
             ),
-            const SizedBox(height: 32.0),
-            const SizedBox(height: 32.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: '사용자 이름',
-              ),
+          ),
+          AnimatedPositioned(
+            duration: Duration(seconds: 2),
+            curve: Curves.easeInOut,
+            top: _isMoving ? MediaQuery.of(context).size.height / 2 - 110 : -15,
+            left: _isMoving ? MediaQuery.of(context).size.width / 2 - 50 : 280,
+            child: CircleAvatar(
+              backgroundColor: Color.fromRGBO(255, 220, 98, 0.75),
+              radius: 50,
             ),
-            const SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: '비밀번호',
-              ),
-              obscureText: true,
+          ),
+          AnimatedPositioned(
+            duration: Duration(seconds: 2),
+            curve: Curves.easeInOut,
+            top: _isMoving ? MediaQuery.of(context).size.height / 2 + 70 : 780,
+            left: _isMoving ? MediaQuery.of(context).size.width / 2 - 50 : 130,
+            child: CircleAvatar(
+              backgroundColor: Color.fromRGBO(0, 142, 31, 0.75),
+              radius: 50,
             ),
-            const SizedBox(height: 24.0),
-            Row(
-              children: [
-                const Spacer(),
-                ElevatedButton(
-                  onPressed: () {
-                    // 로그인 버튼이 클릭되었을 때 처리하는 로직을 추가하세요.
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const makeGroup()),
-                    );
-                  },
-                  child: const Text('로그인'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey,
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  ),
-                ),
-              ],
+          ),
+          AnimatedPositioned(
+            duration: Duration(seconds: 2),
+            curve: Curves.easeInOut,
+            top: _isMoving ? MediaQuery.of(context).size.height / 2 + 10 : 350,
+            left: _isMoving ? MediaQuery.of(context).size.width / 2 - 50 : 330,
+            child: CircleAvatar(
+              backgroundColor: Color.fromRGBO(208, 35, 77, 0.75),
+              radius: 50,
             ),
-            const SizedBox(height: 16.0),
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const mem()),
-                    );
-                  },
-                  child: const Text(
-                    '가입하기',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black, // 검은색으로 설정
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                ),
-                const Spacer(),
-              ],
+          ),
+          AnimatedPositioned(
+            duration: Duration(seconds: 2),
+            curve: Curves.easeInOut,
+            top: _isMoving ? MediaQuery.of(context).size.height / 2 - 50 : 500,
+            left: _isMoving ? MediaQuery.of(context).size.width / 2 - 50 : -23,
+            child: CircleAvatar(
+              backgroundColor: Color.fromRGBO(255, 122, 48, 0.75),
+              radius: 50,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: ColoredCircles(),
+  ));
 }
